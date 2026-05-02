@@ -76,7 +76,7 @@
     <!-- Main page container -->
     <main class="notes-container">
       <!-- Add new note card -->
-      <div class="add-note-card" id="addNotCard">
+      <div class="add-note-card" id="addNoteCard">
         <!-- Collapsed state - just a placeholder text -->
         <div class="note-placeholder" id="notePlaceholder">
           <i class="fas fa-plus"></i>
@@ -168,7 +168,7 @@
           <i class="fas fa-thumbtack"></i>
           Pinned
         </div>
-        <div class="notes-grid" id="pinnedGird">
+        <div class="notes-grid" id="pinnedGrid">
           {% for note in pinned_notes %}
           <div class="note-card {{ note.color }}" data-id="{{ note.id }}">
             <!-- Pin indicator icon -->
@@ -219,7 +219,7 @@
               </button>
             </div>
           </div>
-          { % endfor %}
+          {% endfor %}
         </div>
         {% endif %}
 
