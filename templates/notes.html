@@ -72,5 +72,92 @@
         </a>
       </div>
     </nav>
+
+    <!-- Main page container -->
+    <main class="notes-container">
+      <!-- Add new note card -->
+      <div class="add-note-card" id="addNotCard">
+        <!-- Collapsed state - just a placeholder text -->
+        <div class="note-placeholder" id="notePlaceholder">
+          <i class="fas fa-plus"></i>
+          <span>Take a note...</span>
+        </div>
+
+        <!-- Expanded state - full editor (hidden by default) -->
+        <div class="note-editor" id="noteEditor" style="display: none">
+          <!-- Title input -->
+          <input
+            type="text"
+            id="noteTitle"
+            placeholder="Title"
+            class="note-title-input"
+          />
+
+          <!-- Quill rich text editor attaches here -->
+          <div id="quill-editor"></div>
+
+          <!-- Bottom toolbar -->
+          <div class="editor-toolbar">
+            <!-- Color picker circles -->
+            <div class="color-picker">
+              <div
+                class="color-dot"
+                style="background: #ffffff"
+                data-color="white"
+                title="White"
+              ></div>
+              <div
+                class="color-dot"
+                style="background: #fef3c7"
+                data-color="yellow"
+                title="Yellow"
+              ></div>
+              <div
+                class="color-dot"
+                style="background: #dcfce7"
+                data-color="green"
+                title="Green"
+              ></div>
+              <div
+                class="color-dot"
+                style="background: #dbeafe"
+                data-color="blue"
+                title="Blue"
+              ></div>
+              <div
+                class="color-dot"
+                style="background: #fce7f3"
+                data-color="pink"
+                title="Pink"
+              ></div>
+              <div
+                class="color-dot"
+                style="background: #ede9fe"
+                data-color="purple"
+                title="Purple"
+              ></div>
+            </div>
+
+            <!-- Right side buttons -->
+            <div class="editor-actions">
+              <!-- Pin toggle button -->
+              <button class="btn-icon" id="pinToggle" title="Pin note">
+                <i class="fas fa-thumbtack"></i>
+              </button>
+
+              <!-- Hidden inputs carry color and pin value to Flask -->
+              <input type="hidden" id="selectedColor" value="white" />
+              <input type="hidden" id="isPinned" value="0" />
+
+              <!-- Save button -->
+              <button class="btn-save" id="saveNote">
+                <i class="fas fa-check"></i>
+                Save Note
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
