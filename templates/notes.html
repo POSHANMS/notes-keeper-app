@@ -158,6 +158,71 @@
           </div>
         </div>
       </div>
+
+      <!-- Notes grid section -->
+      <div class="notes-section" id="notesSection">
+        <!-- Pinned notes -->
+        {% set pinned_notes = notes | selectattr('pinned', 'equalto', 1) | list
+        %} {% if pinned_notes %}
+        <div class="section-label">
+          <i class="fas fa-thumbtack"></i>
+          Pinned
+        </div>
+        <div class="notes-grid" id="pinnedGird">
+          {% for note in pinned_notes %}
+          <div class="note-card {{ note.color }}" data-id="{{ note.id }}">
+            <!-- Pin indicator icon -->
+            <div class="note-pin-icon">
+              <i class="fas fa-thumbtack"></i>
+            </div>
+
+            <!-- Note title - only shows if title exists -->
+            {% if note.title %}
+            <h3 class="note-card-title">{{ note.title }}</h3>
+            {% endif %}
+
+            <!-- Content preview - striptags removes Quill HTML tags -->
+            <p class="note-card-content">
+              {{ note.content | striptags | truncate(150) }}
+            </p>
+
+            <!-- Timestamp -->
+            <span class="note-timestamp">
+              {{ note.updated_at.strftime('%b %d, %Y') }}
+            </span>
+
+            <!-- Edit, Pin, Delete buttons -->
+            <div class="note-actions">
+              <button
+                class="btn-note-action btn-edit"
+                data-id="{{ note.id }}"
+                data-title="{{ note.title }}"
+                data-content="{{ note.content }}"
+                data-color="{{ note.color }}"
+                title="Edit note"
+              >
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-note-action btn-pin"
+                data-id="{{ note.id }}"
+                title="Unpin note"
+              >
+                <i class="fas fa-thumbtack"></i>
+              </button>
+              <button
+                class="btn-note-action btn-delete"
+                data-id="{{ note.id }}"
+                title="Delete note"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          { % endfor %}
+        </div>
+        {% endif %}
+      </div>
     </main>
   </body>
 </html>
