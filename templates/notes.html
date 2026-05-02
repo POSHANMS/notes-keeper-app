@@ -35,5 +35,42 @@
       href="{{ url_for('static', filename='css/style.css') }}"
     />
   </head>
-  <body></body>
+  <body>
+    <!-- Fixed top navbar -->
+    <nav class="notes-navbar">
+      <!-- Brand logo left side -->
+      <div class="nav-brand">
+        <i class="fas fa-bolt"></i>
+        <span>NoteFlash</span>
+      </div>
+
+      <!-- Search bar center -->
+      <div class="nav-search">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search your notes..."
+        />
+      </div>
+
+      <!-- Right side controls -->
+      <div class="nav-controls">
+        <!-- Dark mode toggle -->
+        <button class="btn-icon" id="darkModeToggle" tittle="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <!-- Logged in username -->
+        <span class="nav-username">
+          <i class="fas fa-user-circle"></i>
+          {{ session.name}}
+        </span>
+        <!-- Logout -->
+        <a href="/logout" class="btn-logout">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </a>
+      </div>
+    </nav>
+  </body>
 </html>
