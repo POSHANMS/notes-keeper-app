@@ -222,6 +222,68 @@
           { % endfor %}
         </div>
         {% endif %}
+
+        <!-- Other notes -->
+        {% set other_notes = notes | selectattr('pinned', 'equalto', 0) | list
+        %} {% if other_notes %}
+        <div class="section-label">
+          <i class="fas fa-sticky-note"></i>
+          Others
+        </div>
+        <div class="notes-grid" id="otherGrid">
+          {% for note in other_notes %}
+          <div class="note-card {{ note.color }}" data-id="{{ note.id }}">
+            {% if note.title %}
+            <h3 class="note-card-title">{{ note.title }}</h3>
+            {% endif %}
+
+            <p class="note-card-content">
+              {{ note.content | striptags | truncate(150) }}
+            </p>
+
+            <span class="note-timestamp">
+              {{ note.updated_at.strftime('%b %d, %Y') }}
+            </span>
+
+            <div class="note-actions">
+              <button
+                class="btn-note-action btn-edit"
+                data-id="{{ note.id }}"
+                data-title="{{ note.title }}"
+                data-content="{{ note.content }}"
+                data-color="{{ note.color }}"
+                title="Edit note"
+              >
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="btn-note-action btn-pin"
+                data-id="{{ note.id }}"
+                title="Pin note"
+              >
+                <i class="fas fa-thumbtack"></i>
+              </button>
+              <button
+                class="btn-note-action btn-delete"
+                data-id="{{ note.id }}"
+                title="Delete note"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Empty state - shows when user has zero notes -->
+        {% if not notes %}
+        <div class="empty-state">
+          <i class="fas fa-bolt"></i>
+          <h3>No notes yet</h3>
+          <p>Click above to capture your first thought</p>
+        </div>
+        {% endif %}
       </div>
     </main>
   </body>
