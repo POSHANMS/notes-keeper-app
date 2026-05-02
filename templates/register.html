@@ -60,7 +60,7 @@
       <!-- Right Panel -->
       <div class="auth-right">
         <!-- Form Card -->
-        <div class="auth-right">
+        <div class="auth-card">
           <!-- Heading -->
           <div class="auth-heading">
             <h2>Create account</h2>
@@ -69,7 +69,7 @@
 
           <!-- Flash Messages -->
           {% with messages = get_flashed_messages(with_categories=true) %} {% if
-          message %} {% for category, message in messages %}
+          messages %} {% for category, message in messages %}
           <div
             class="alert alert-{{ category }} alert-dismissible fade show"
             role="alert"
