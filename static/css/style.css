@@ -1,0 +1,93 @@
+/* ============================================
+   CSS VARIABLES - Light theme (default)
+   ============================================ */
+
+:root {
+    /* Background colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #ffffff;
+
+    /* Text colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Brand colors */
+    --brand-primary: #6366f1;
+    --brand-secondary: #8b5cf6;
+    --brand-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+
+    /* Border and shadow */
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
+    --showdow-lg: 0 8px 32px rgba(0, 0 ,0, 0.12);
+
+    /* Auth left panel */
+    --auth-left-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
+    /* Note card colors */
+    --note-white: #ffffff;
+    --note-yellow: #fef3c7;
+    --note-green: #dcfce7;
+    --note-blue: #dbeafe;
+    --note-pink: #fce7f3;
+    --note-purple: #ede9fe;
+
+    /* Font */
+    --font: 'Space Grotesk', sans-serif;
+
+    /* Transitions */
+    --transition: all 0.2s ease;
+}
+
+/* ============================================
+    DARK THEME - applied when body has .dark class
+    ============================================ */
+body.dark {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293d;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --note-white: #1e293b;
+    --note-yellow: #2d2a1e;
+    --note-green: #1a2e1e;
+    --note-blue: #1a2333;
+    --note-pink: #2d1a24;
+    --note-purple: #221a2d;
+}
+
+/* ============================================
+   GLOBAL RESET
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background-color: (var(--bg-secondary));
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+a {
+    text-decoration: none;
+    color: var(--brand-primary);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+}
