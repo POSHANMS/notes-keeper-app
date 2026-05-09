@@ -91,3 +91,177 @@ button {
     outline: none;
     background: none;
 }
+
+/* ============================================
+   AUTH PAGES - Login and Register
+   ============================================ */
+
+/* Full screen split layout */
+.auth-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Left panel - gradient background */
+.auth-left {
+    flex: 1;
+    background: var(--auth-left-bg);
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Right panel - holds the glass card */
+.auth-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: var(--bg-secondary);
+}
+
+/* Glass card */
+.auth-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Dark mode glass card */
+body.dark .auth-card {
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Heading inside card */
+.auth-heading {
+    margin-bottom: 1.8rem;
+}
+
+.auth-heading h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.auth-heading p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Form inputs */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+/* Input wrapper holds icon + input + eye toggle */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Left icon inside input */
+.input-wrapper > i:first-child {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+/* The actual input field */
+.input-wrapper .form-control {
+    padding: 0.7rem 2.8rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-family: var(--font);
+    font-size: 0.95rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--transition);
+    width: 100%;
+}
+
+.input-wrapper .form-control:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Eye toggle icon on right side */
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: var(--transition);
+}
+
+.toggle-password:hover {
+    color: var(--brand-primary);
+}
+
+/* Submit button */
+.btn-auth {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--brand-gradient);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-auth:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Switch link at bottom of card */
+.auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.auth-switch a {
+    color: var(--brand-primary);
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
