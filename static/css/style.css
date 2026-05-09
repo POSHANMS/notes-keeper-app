@@ -265,3 +265,126 @@ body.dark .auth-card {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+
+/* ============================================
+   AUTH LEFT PANEL
+   ============================================ */
+
+/* Brand logo and name */
+.auth-brand {
+    text-align: center;
+    margin-bottom: 3rem;
+    z-index: 1;
+}
+
+.brand-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.brand-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.brand-tagline {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+/* Floating decorative note cards */
+.floating-notes {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    z-index: 1;
+}
+
+.float-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 1rem 1.4rem;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+}
+
+/* Position each card differently */
+.card-1 {
+    top: 0;
+    left: 10%;
+    animation: float 3s ease-in-out infinite;
+}
+
+.card-2 {
+    top: 60px;
+    right: 5%;
+    animation: float 3s ease-in-out infinite 0.8s;
+}
+
+.card-3 {
+    bottom: 0;
+    left: 20%;
+    animation: float 3s ease-in-out infinite 1.5s;
+}
+
+/* The float animation */
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Decorative blurred circles in background */
+.auth-left::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    top: -100px;
+    right: -100px;
+}
+
+.auth-left::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    bottom: -60px;
+    left: -60px;
+}
+
+/* ============================================
+   RESPONSIVE - hide left panel on mobile
+   ============================================ */
+@media (max-width: 768px) {
+    .auth-left {
+        display: none;
+    }
+
+    .auth-right {
+        flex: 1;
+    }
+
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+}
