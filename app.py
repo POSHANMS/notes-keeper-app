@@ -13,7 +13,7 @@ app = Flask(__name__)
 # Configure app
 app.secret_key = os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK-MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Connect SQLAlchemy to Flask app
 db.init_app(app)
@@ -42,7 +42,7 @@ def login_post():
     user = User.query.filter_by(email=email).first()
 
     # Check user exists and password is correct
-    if not user or not check_password_hash(user.passowrd, password):
+    if not user or not check_password_hash(user.password, password):
         flash('Invalid email or password', 'danger')
         return redirect(url_for('login'))
     
@@ -122,7 +122,7 @@ def add_note():
     pinned = int(request.form.get('pinned', 0))
 
     new_note = Note(
-        User_id = session['user_id'],
+        user_id = session['user_id'],
         title = title,
         content =content,
         color = color,
@@ -220,7 +220,7 @@ def search():
     results = Note.query.filter(
         Note.user_id == session['user_id'],
         db.or_(
-            Note.title.ilike(f'%{query}%')
+            Note.title.ilike(f'%{query}%'),
             Note.content.ilike(f'%{query}%')
         )
     ).order_by(Note.pinned.desc(), Note.updated_at.desc()).all()
@@ -259,16 +259,16 @@ def autosave():
             db.session.commit()
             return jsonify({'success': True, 'note_id': note.id})
         
-        # Create new note if no note_id
-        new_note = Note(
-            user_id = session['user_id'],
-            title = title,
-            content = content
-        )
-        db.session.add(new_note)
-        db.session.commit()
+    # Create new note if no note_id
+    new_note = Note(
+        user_id = session['user_id'],
+        title = title,
+        content = content
+    )
+    db.session.add(new_note)
+    db.session.commit()
 
-        return jsonify({'success': True, 'note_id': new_note.id})
+    return jsonify({'success': True, 'note_id': new_note.id})
 
 # ─── RUN APP ────────────────────────────────────────────
 
