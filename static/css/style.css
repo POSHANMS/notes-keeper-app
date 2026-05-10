@@ -937,3 +937,93 @@ body.dark .auth-card {
    .notes-container {
     margin-top: 84px;
 }
+
+/* ============================================
+   DARK MODE TWEAKS
+   ============================================ */
+
+/* Quill editor dark mode */
+body.dark .ql-toolbar.ql-snow {
+    border-bottom-color: var(--border-color) !important;
+}
+
+body.dark .ql-toolbar .ql-stroke {
+    stroke: var(--text-secondary);
+}
+
+body.dark .ql-toolbar .ql-fill {
+    fill: var(--text-secondary);
+}
+
+body.dark .ql-toolbar .ql-picker-label {
+    color: var(--text-secondary);
+}
+
+/* Add note card dark mode */
+body.dark .add-note-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+/* Note cards dark mode border */
+body.dark .note-card {
+    border-color: var(--border-color);
+}
+
+/* Nav search dark mode */
+body.dark .nav-search {
+    background: var(--bg-secondary);
+}
+
+/* Input fields dark mode */
+body.dark .form-control {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark .form-control::placeholder {
+    color: var(--text-muted);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Fade in up - for note cards appearing */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply to note cards */
+.note-card {
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+/* Fade in - for auth card */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.auth-card {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+/* Pulse animation for empty state icon */
+@keyframes pulse {
+    0%   { opacity: 0.3; }
+    50%  { opacity: 0.6; }
+    100% { opacity: 0.3; }
+}
+
+.empty-state i {
+    animation: pulse 2s ease-in-out infinite;
+}
