@@ -22,7 +22,7 @@
     --border-color: #e2e8f0;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
-    --showdow-lg: 0 8px 32px rgba(0, 0 ,0, 0.12);
+    --shawdow-lg: 0 8px 32px rgba(0, 0 ,0, 0.12);
 
     /* Auth left panel */
     --auth-left-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
@@ -48,7 +48,7 @@
 body.dark {
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
-    --bg-card: #1e293d;
+    --bg-card: #1e293b;
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
@@ -75,7 +75,7 @@ body.dark {
 
 body {
     font-family: var(--font);
-    background-color: (var(--bg-secondary));
+    background-color: var(--bg-secondary);
     color: var(--text-primary);
     transition: var(--transition);
 }
@@ -107,7 +107,7 @@ button {
     flex: 1;
     background: var(--auth-left-bg);
     display: flex;
-    flex-direction: center;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 3rem;
