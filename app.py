@@ -1,21 +1,23 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import db, User, Note
+from dotenv import load_dotenv
+import os
 
+# Load .env variables
+load_dotenv()
+
+# Create Flask app
 app = Flask(__name__)
-app.secret_key = "previewkey"
 
-@app.route('/')
-def login():
-    return render_template('login.html')
+# Configure app
+app.secret_key = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK-MODIFICATIONS'] = False
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
+# Connect SQLAlchemy to Flask app
+db.init_app(app)
 
-@app.route('/notes')
-def notes():
-    # Fake session and empty notes just for preview
-    session['name'] = 'Poshan'
-    return render_template('notes.html', notes=[])
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# Create all tables if they don't exist
+with app.app_context():
+    db.create_all()
