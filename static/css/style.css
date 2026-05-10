@@ -22,7 +22,7 @@
     --border-color: #e2e8f0;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
-    --shawdow-lg: 0 8px 32px rgba(0, 0 ,0, 0.12);
+    --shadow-lg: 0 8px 32px rgba(0, 0 ,0, 0.12);
 
     /* Auth left panel */
     --auth-left-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
