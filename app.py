@@ -91,3 +91,19 @@ def register_post():
 def logout():
     session.clear()
     return redirect(url_for('login'))
+
+# ─── NOTES ROUTE ────────────────────────────────────────────
+
+# Show all notes
+@app.route('/notes')
+def notes():
+    # If not logged in, redirect to login
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    # Fetch all notes for logged in user
+    # Pinned notes first, then by updated_at newest first
+    user_notes = Note.query.filter_by(user_id=session['user_id'])\
+                            .order_by(Note.pinned.desc(), Note.updated_at.desc())\
+                            .all()
+    return render_template('notes.html', notes=user_notes)
