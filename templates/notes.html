@@ -287,6 +287,94 @@
       </div>
     </main>
 
+    <!-- Edit Note Modal -->
+    <div class="'modal fade" id="editModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title">Edit note</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <!-- Title input -->
+            <input
+              type="text"
+              id="editTitle"
+              placeholder="Title"
+              class="note-title-input mb-3"
+            />
+
+            <!-- Quill editor for editing -->
+            <div id="quill-editor-edit"></div>
+
+            <!-- Color picker -->
+            <div class="'editor-toolbar mt-3">
+              <div class="color-picker">
+                <div
+                  class="color-dot"
+                  style="background: #ffffff"
+                  data-color="white"
+                  title="White"
+                ></div>
+                <div
+                  class="color-dot"
+                  style="background: #fef3c7"
+                  data-color="yellow"
+                  title="Yellow"
+                ></div>
+                <div
+                  class="color-dot"
+                  style="background: #dcfce7"
+                  data-color="green"
+                  title="Green"
+                ></div>
+                <div
+                  class="color-dot"
+                  style="background: #dbeafe"
+                  data-color="blue"
+                  title="Blue"
+                ></div>
+                <div
+                  class="color-dot"
+                  style="background: #fce7f3"
+                  data-color="pink"
+                  title="Pink"
+                ></div>
+                <div
+                  class="color-dot"
+                  style="background: #ede9fe"
+                  data-color="purple"
+                  title="Purple"
+                ></div>
+              </div>
+              <div class="editor-actions">
+                <button class="btn-icon" id="editPinToggle" title="Pin note">
+                  <i class="fas fa-thumbtack"></i>
+                </button>
+                <input type="hidden" id="editSelectedColor" value="white" />
+                <input type="hidden" id="editIsPinned" value="0" />
+                <input type="hidden" id="editNoteId" value="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn-auth" id="saveEditNote">
+              <i class="fas fa-check"></i>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
