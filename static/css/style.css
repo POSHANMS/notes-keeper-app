@@ -530,3 +530,162 @@ body.dark .auth-card {
         display: none;
     }
 }
+
+/* ============================================
+   NOTES CONTAINER
+   ============================================ */
+
+/* Push content below fixed navbar */
+.notes-container {
+    margin-top: 64px;
+    padding: 2rem 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============================================
+   ADD NOTE CARD
+   ============================================ */
+
+.add-note-card {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1rem 1.4rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.add-note-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand-primary);
+}
+
+/* Collapsed placeholder text */
+.note-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.note-placeholder i {
+    font-size: 0.875rem;
+}
+
+/* Title input inside expanded editor */
+.note-title-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+}
+
+.note-title-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Bottom toolbar of editor */
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Color picker circles row */
+.color-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.color-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.color-dot:hover {
+    transform: scale(1.2);
+    border-color: var(--brand-primary);
+}
+
+/* Active selected color dot */
+.color-dot.active {
+    border-color: var(--brand-primary);
+    transform: scale(1.2);
+}
+
+/* Right side editor buttons */
+.editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Save button */
+.btn-save {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    background: var(--brand-gradient);
+    color: white;
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-save:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   QUILL EDITOR OVERRIDES
+   ============================================ */
+
+/* Remove default Quill border */
+.ql-container.ql-snow {
+    border: none !important;
+    font-family: var(--font) !important;
+    font-size: 0.95rem !important;
+}
+
+/* Remove default Quill toolbar border */
+.ql-toolbar.ql-snow {
+    border: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 0.4rem 0 !important;
+}
+
+/* Quill editor text color */
+.ql-editor {
+    color: var(--text-primary) !important;
+    min-height: 120px !important;
+    padding: 0.8rem 0 !important;
+}
+
+.ql-editor.ql-blank::before {
+    color: var(--text-muted) !important;
+    font-style: normal !important;
+}
