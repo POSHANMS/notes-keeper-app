@@ -785,3 +785,95 @@ body.dark .auth-card {
     display: block;
     margin-bottom: 0.5rem;
 }
+
+/* Action buttons - hidden by default, show on hover */
+.note-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.note-card:hover .note-actions {
+    opacity: 1;
+}
+
+/* Individual action buttons */
+.btn-note-action {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(0,0,0,0.04);
+    transition: var(--transition);
+}
+
+.btn-note-action:hover {
+    color: var(--brand-primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.btn-delete:hover {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: var(--brand-primary);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVE GRID
+   ============================================ */
+@media (max-width: 1024px) {
+    .notes-grid {
+        columns: 3 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .notes-grid {
+        columns: 2 180px;
+    }
+
+    .notes-container {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .notes-grid {
+        columns: 1;
+    }
+}
