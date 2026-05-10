@@ -1027,3 +1027,45 @@ body.dark .form-control::placeholder {
 .empty-state i {
     animation: pulse 2s ease-in-out infinite;
 }
+
+/* ============================================
+   EDIT MODAL
+   ============================================ */
+
+.modal-content {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.2rem 1.5rem;
+}
+
+.modal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+}
+
+/* Fix btn-close color in dark mode */
+body.dark .btn-close {
+    filter: invert(1);
+}
+
+/* Edit modal save button */
+#saveEditNote {
+    width: auto;
+    padding: 0.5rem 1.5rem;
+}
