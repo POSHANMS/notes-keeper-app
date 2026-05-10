@@ -169,3 +169,71 @@ def delete_note():
     db.session.commit()
 
     return jsonify({'success': True, 'message': 'Note deleted' })
+
+# ─── PIN, COLOR, SEARCH ────────────────────────────────────────────
+
+# Toggle pin on a note
+@app.route('/pin-note', methods=['POST'])
+def pin_note():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    note_id = request.form.get('note_id')
+    note = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
+    
+    # Toggle - if pinned make unpinned, if unpinned make pinned
+    note.pinned = 0 if note.pinned == 1 else 1
+    db.session.commit()
+
+    return jsonify({'success': True, 'pinned': note.pinned})
+
+# Change note color
+@app.route('/color-note', methods=['POST'])
+def color_note():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    note_id = request.form.get('note_id')
+    color   = request.form.get('color')
+    note    = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
+
+    note.color = color
+    db.session.commit()
+
+    return jsonify({'success': True, 'color': note.color})
+
+# Search notes
+@app.route('/search')
+def search():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    query = request.args.get('q', '')
+
+    # Search in both title and content
+    results = Note.query.filter(
+        Note.user_id == session['user_id'],
+        db.or_(
+            Note.title.ilike(f'%{query}%')
+            Note.content.ilike(f'%{query}%')
+        )
+    ).order_by(Note.pinned.desc(), Note.updated_at.desc()).all()
+
+    # Convert notes to list of dicts for JSON response
+    notes_list = []
+    for note in results:
+        notes_list.append({
+            'id':   note.id,
+            'title':    note.title or '',
+            'content':  note.content or '',
+            'color':    note.color,
+            'pinned':   note.pinned,
+            'updated_at':   note.updated_at.strftime('%b %d, %Y')
+        })
+    return jsonify(notes_list)
