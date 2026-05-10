@@ -107,3 +107,65 @@ def notes():
                             .order_by(Note.pinned.desc(), Note.updated_at.desc())\
                             .all()
     return render_template('notes.html', notes=user_notes)
+
+# ─── NOTE ACTIONS ────────────────────────────────────────────
+
+# Add new note
+@app.route('/add-note', methods=['POST'])
+def add_note():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    title = request.form.get('title')
+    content = request.form.get('content')
+    color = request.form.get('color', 'white')
+    pinned = int(request.form.get('pinned', 0))
+
+    new_note = Note(
+        User_id = session['user_id'],
+        title = title,
+        content =content,
+        color = color,
+        pinned = pinned
+    )
+    db.session.add(new_note)
+    db.session.commit()
+
+    return jsonify({'success': True, 'message': 'Note saves'})
+
+# Edit existing note
+@app.route('/edit-note', methods=['POST'])
+def edit_note():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    note_id = request.form.get('note_id')
+    note = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
+    
+    note.title = request.form.get('title')
+    note.content = request.form.get('content')
+    note.color = request.form.get('color', 'white')
+    note.pinned = int(request.form.get('pinned', 0))
+    db.session.commit()
+
+    return jsonify({'success': True, 'message': 'Note updated'})
+
+# Delete note
+@app.route('/delete-note', methods=['POST'])
+def delete_note():
+    if 'user_id' not in session:
+        return jsonify({ 'error': 'Unauthorized'}), 401
+    
+    note_id = request.form.get('note_id')
+    note = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+
+    if not note:
+        return jsonify({'error': 'note not found'}), 404
+    
+    db.session.delete(note)
+    db.session.commit()
+
+    return jsonify({'success': True, 'message': 'Note deleted' })
