@@ -689,3 +689,99 @@ body.dark .auth-card {
     color: var(--text-muted) !important;
     font-style: normal !important;
 }
+
+/* ============================================
+   NOTES SECTION
+   ============================================ */
+
+.notes-section {
+    margin-top: 1rem;
+}
+
+/* Section labels - "Pinned" and "Others" */
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+/* ============================================
+   MASONRY GRID
+   ============================================ */
+
+.notes-grid {
+    columns: 4 250px;
+    column-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Prevents note cards from breaking across columns */
+.note-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    padding: 1.2rem;
+    border: 1.5px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+}
+
+.note-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Note color themes */
+.note-card.white  { background: var(--note-white); }
+.note-card.yellow { background: var(--note-yellow); }
+.note-card.green  { background: var(--note-green); }
+.note-card.blue   { background: var(--note-blue); }
+.note-card.pink   { background: var(--note-pink); }
+.note-card.purple { background: var(--note-purple); }
+
+/* Pin icon on pinned cards */
+.note-pin-icon {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    color: var(--brand-primary);
+    font-size: 0.8rem;
+    transform: rotate(45deg);
+}
+
+/* Note title */
+.note-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Note content preview */
+.note-card-content {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+    word-break: break-word;
+}
+
+/* Timestamp */
+.note-timestamp {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+}
