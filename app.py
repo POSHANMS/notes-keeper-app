@@ -237,3 +237,40 @@ def search():
             'updated_at':   note.updated_at.strftime('%b %d, %Y')
         })
     return jsonify(notes_list)
+
+# ─── AUTO SAVE ────────────────────────────────────────────
+
+# Auto save note while typing
+@app.route('/autosave', methods=['POST'])
+def autosave():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    note_id = request.form.get('note_id')
+    title = request.form.get('title')
+    content = request.form.get('content')
+
+    # If note_id exists update it, else create new note
+    if note_id:
+        note = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+        if note:
+            note.title = title
+            note.content = content
+            db.session.commit()
+            return jsonify({'success': True, 'note_id': note.id})
+        
+        # Create new note if no note_id
+        new_note = Note(
+            user_id = session['user_id'],
+            title = title,
+            content = content
+        )
+        db.session.add(new_note)
+        db.session.commit()
+
+        return jsonify({'success': True, 'note_id': new_note.id})
+
+# ─── RUN APP ────────────────────────────────────────────
+
+if __name__ == '__main__':
+    app.run(debug=True)
