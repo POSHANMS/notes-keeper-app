@@ -115,23 +115,35 @@ def notes():
 def add_note():
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    
-    title = request.form.get('title')
-    content = request.form.get('content')
-    color = request.form.get('color', 'white')
-    pinned = int(request.form.get('pinned', 0))
 
+    title   = request.form.get('title')
+    content = request.form.get('content')
+    color   = request.form.get('color', 'white')
+    pinned  = int(request.form.get('pinned', 0))
+    note_id = request.form.get('note_id')
+
+    # If note_id exists - update instead of create new
+    if note_id:
+        note = Note.query.filter_by(id=note_id, user_id=session['user_id']).first()
+        if note:
+            note.title   = title
+            note.content = content
+            note.color   = color
+            note.pinned  = pinned
+            db.session.commit()
+            return jsonify({'success': True, 'message': 'Note updated'})
+
+    # Create new note
     new_note = Note(
         user_id = session['user_id'],
-        title = title,
-        content =content,
-        color = color,
-        pinned = pinned
+        title   = title,
+        content = content,
+        color   = color,
+        pinned  = pinned
     )
     db.session.add(new_note)
     db.session.commit()
-
-    return jsonify({'success': True, 'message': 'Note saves'})
+    return jsonify({'success': True, 'message': 'Note saved'})
 
 # Edit existing note
 @app.route('/edit-note', methods=['POST'])

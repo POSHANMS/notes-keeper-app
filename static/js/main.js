@@ -455,7 +455,7 @@ if (searchInput) {
             let html = `<div class="notes-grid">`;
             notes.forEach(function(note) {
                 html += `
-                <div class="note-card ${note.color}" data-id=${note.id}">
+                <div class="note-card ${note.color}" data-id="${note.id}">
                      ${note.title ? `<h3 class="note-card-title">${note.title}</h3>` : ''}
                      <p class="note-card-content">${note.content.replace(/<[^>]*>/g, '').substring(0, 150)}</p>
                      <span class="note-timestamp">${note.updated_at}</span>
