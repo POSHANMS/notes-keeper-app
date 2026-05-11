@@ -95,3 +95,47 @@ if (document.getElementById('quill-editor-edit')) {
         }
     });
 }
+
+// ============================================
+// NOTE EDITOR - Open and Close
+// ============================================
+
+const addNoteCard = document.getElementById('addNoteCard');
+const notePlaceholder = document.getElementById('notePlaceholder');
+const noteEditor = document.getElementById('noteEditor');
+
+// Open editor when placeholder is clicked
+if (notePlaceholder) {
+    notePlaceholder.addEventListener('click', function() {
+        notePlaceholder.style.display = 'none';
+        noteEditor.style.display = 'block';
+        document.getElementById('noteTitle').focus();
+    });
+}
+
+// Close editor when clicking outside the add note card
+document.addEventListener('click', function(e) {
+    if (addNoteCard && !addNoteCard.contains(e.target)) {
+        // Only close if editor is open
+        if (noteEditor && noteEditor.style.display === 'block') {
+            notePlaceholder.style.display = 'flex';
+            noteEditor.style.display = 'none';
+
+            // Reset editor fields
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('selectedColor').value = 'white';
+            document.getElementById('isPinned').value = '0';
+
+            // Reset Quill editor content
+            if (quill) quill.setText('');
+
+            // Reset color dots
+            document.querySelectorAll('#addNoteCard .color-dot')
+                .forEach(dot => dot.classList.remove('active'));
+
+            // Reset pin button
+            const pinToggle = document.getElementById('pinToggle');
+            if (pinToggle) pinToggle.style.color = '';
+        }
+    }
+});
