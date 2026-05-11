@@ -341,3 +341,67 @@ if (saveEditBtn) {
         }
     });
 }
+
+// ============================================
+// DELETE NOTE - Send to Flask /delete-note
+// ============================================
+
+document.querySelectorAll('.btn-delete').forEach(function(btn) {
+    btn.addEventListener('click', async function(e) {
+        // Stop click from bubbling up to card
+        e.stopPropagation();
+
+        // Ask for confirmation before deleting
+        if (!confirm('Delete this note?')) return;
+
+        const noteId = this.getAttribute('data-id');
+
+        const formData = new FormData();
+        formData.append('note_id', noteId);
+
+        const response = await fetch('/delete-note', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Remove note card from DOM without reloading
+            const card = document.querySelector(`.note-card[data-id="${noteId}"]`);
+            if (card) card.remove();
+        } else {
+            alert('Error deleting note. Please try again. ');
+        }
+    });
+});
+
+// ============================================
+// PIN FROM CARD - Send to Flask /pin-note
+// ============================================
+
+document.querySelectorAll('.btn-pin').forEach(function(btn) {
+    btn.addEventListener('click', async function(e) {
+        // Stop click from bubbling up to card
+        e.stopPropagation();
+
+        const noteId = this.getAttribute('data-id');
+
+        const formData = new FormData();
+        formData.append('note_id', noteId);
+
+        const response =await fetch('/pin-note', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Reload to reorder pinned and unpinned notes
+            window.location.reload();
+        } else {
+            alert('Error pinning note. Please try again.');
+        }
+    });
+});
