@@ -317,6 +317,7 @@ document.querySelectorAll('.btn-edit').forEach(function(btn) {
 
         // Open Bootstrap modal
         const modal = new bootstrap.Modal(document.getElementById('editModal'));
+        modal.show(); 
     });
 });
 
