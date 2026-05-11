@@ -480,7 +480,64 @@ if (searchInput) {
             });
             html += '</div>';
             notesSection.innerHTML = html;
-            
+
         }, 300);
     });
+}
+
+// ============================================
+// AUTO-SAVE - Save note while typing
+// ============================================
+
+let autoSaveTimer;
+let currentNoteId = null; // tracks the note being auto-saved
+
+// Function to trigger auto-save
+function triggerAutoSave() {
+    const title = document.getElementById('noteTitle');
+    const content = quill ? quill.root.innerHTML : '';
+
+    // Only auto-save if editor is open
+    if (!title || !noteEditor || noteEditor.style.display === 'none') return;
+
+    // Debounce - wait 1 second after user stops typing
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(async function() {
+        const titleValue = title.value.trim();
+
+        // Don't auto-save if completely empty
+        if (!titleValue && quill.getItem().trim() === '') return;
+
+        const formData = new FormData();
+        formData.append('title', titleValue);
+        formData.append('content', content);
+
+        // If we already have a note_id send it to update
+        if (currentNoteId) {
+            formData.append('note_id', currentNoteId);
+        }
+
+        const response = await fetch('/autosave', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Store note_id for next auto-save
+            currentNoteId = data.note_id;
+        }
+    }, 1000);
+}
+
+// Listen for typing in title input
+const noteTitle = document.getElementById('noteTitle');
+if (noteTitle) {
+    noteTitle.addEventListener('input', triggerAutoSave);
+}
+
+// Listen for typing in Quill editor
+if (quill) {
+    quill.on('text-change', triggerAutoSave);
 }
