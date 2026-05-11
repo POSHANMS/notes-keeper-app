@@ -139,3 +139,86 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// ============================================
+// COLOR PICKER - Add note editor
+// ============================================
+
+// Handle color dot clicks in add note editor
+document.querySelectorAll('#addNoteCard .color-dot').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+        // Remove active class from all dots
+        document.querySelectorAll('#addNoteCard .color-dot')
+            .forEach(d => d.classList.remove('active'));
+
+        // Add active class to clicked dot
+        this.classList.add('active');
+
+        // Store selected color in hidden input
+        document.getElementById('selectedColor').value = this.getAttribute('data-color');
+    });
+});
+
+// ============================================
+// PIN TOGGLE - Add note editor
+// ============================================
+
+const pinToggle = document.getElementById('pinToggle');
+
+if (pinToggle) {
+    pinToggle.addEventListener('click', function() {
+        const isPinned = document.getElementById('isPinned');
+
+        if (isPinned.value == '0') {
+            // Pin it
+            isPinned.value = '1';
+            this.style.color = 'var(--brand-primary)';
+            this.title = 'Unpin note';
+        } else {
+            // Unpin it
+            isPinned.value = '0';
+            this.style.color = '';
+            this.title = 'Pin note';
+        }
+    });
+}
+
+// ============================================
+// COLOR PICKER - Edit modal
+// ============================================
+
+document.querySelectorAll('#editModal .color-dot').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+        // Remove active from all dots in edit modal
+        document.querySelectorAll('#editModal .color-dot')
+            .forEach(d => d.classList.remove('active'));
+
+            // Add active to clicked dot
+            this.classList.add('active');
+
+            // Store selected color in hidden input
+            document.getElementById('editSelectedColor').value = this.getAttribute('data-color');
+    });
+});
+
+// ============================================
+// PIN TOGGLE - Edit modal
+// ============================================
+
+const editPinToggle = document.getElementById('editPinToggle');
+
+if (editPinToggle) {
+    editPinToggle.addEventListener('click', function() {
+        const editIspinned = document.getElementById('editIsPinned');
+
+        if (editIspinned.value === '0') {
+            editIspinned.value = '1';
+            this.style.color = 'var(--brand-primary';
+            this.title = 'Unpin note';
+        } else {
+            editIspinned.value = '0';
+            this.style.color = '';
+            this.title = 'Pin note';
+        }
+    });
+}
