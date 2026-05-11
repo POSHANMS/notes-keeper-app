@@ -184,7 +184,23 @@ python app.py
  
 ## Screenshots
  
-> Login page, Notes dashboard, Dark mode — add screenshots here
+### Login
+![Login](static/screenshots/login.png)
+
+### Register
+![Register](static/screenshots/register.png)
+
+### Notes Empty Dashboard
+![Notes](static/screenshots/notes-dashboard.png)
+
+### Notes Dashboard
+![Notes](static/screenshots/notes.png)
+
+### Dark Mode — Empty State
+![Dark Empty](static/screenshots/dark-empty.png)
+
+### Dark Mode — With Notes
+![Dark Notes](static/screenshots/dark-notes.png)
  
 ---
  
