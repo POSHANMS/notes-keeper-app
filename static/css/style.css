@@ -405,7 +405,7 @@ body.dark .auth-card {
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
-    z-index: 100;
+    z-index: 99;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
 }
