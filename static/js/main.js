@@ -58,3 +58,40 @@ if (darkModeToggle) {
         }
     });
 }
+
+// ============================================
+// QUILL.JS SETUP - Rich text editors
+// ============================================
+
+// Toolbar options - which buttons to show
+const toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    ['clean']
+];
+
+// Initialize Quill for ADD note editor
+// Check if element exists first - only on notes page
+let quill = null;
+if (document.getElementById('quill-editor')) {
+    quill = new quill('#quill-editor', {
+        theme: 'snow',
+        placeholder: 'Take a note...',
+        modules: {
+            toolbar: toolbarOptions
+        }
+
+    });
+}
+
+// Initialize Quill for EDIT note modal
+let quillEdit = null;
+if (document.getElementById('quill-editor-edit')) {
+    quillEdit = new Quill('#quill-editor-edit', {
+        theme: 'snow',
+        placeholder: 'Edit your note...',
+        modules: {
+            toolbar: toolbarOptions
+        }
+    });
+}
