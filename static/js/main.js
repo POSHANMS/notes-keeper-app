@@ -304,9 +304,19 @@ document.querySelectorAll('.btn-edit').forEach(function(btn) {
         // Set color hidden input
         document.getElementById('editSelectedColor').value = color || 'white';
 
+        // Set pin state from note data
+        const pinned = this.closest('.note-card').querySelector('.note-pin-icon') ? '1' : '0';
+        document.getElementById('editIsPinned').value = pinned;
+
+        // Update pin button color to show current state
+        if (pinned === '1') {
+            document.getElementById('editPinToggle').style.color = 'var(--brand-primary)';
+        } else {
+            document.getElementById('editPinToggle').style.color = '';
+        }
+
         // Open Bootstrap modal
         const modal = new bootstrap.Modal(document.getElementById('editModal'));
-        modal.show(); 
     });
 });
 
