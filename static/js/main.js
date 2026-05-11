@@ -405,3 +405,82 @@ document.querySelectorAll('.btn-pin').forEach(function(btn) {
         }
     });
 });
+
+// ============================================
+// REAL-TIME SEARCH with Debouncing
+// ============================================
+
+const searchInput = document.getElementById('searchInput');
+const notesSection = document.getElementById('notesSection');
+let searchTimer;
+
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim();
+
+        // Debounce - wait 300ms after user stops typing
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(async function() {
+            
+            // If search is empty reload page to show all notes
+            if (query === '') {
+                window.location.reload();
+                return;
+            }
+
+            // Send search request to Flask
+            const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+            const notes = await response.json();
+
+            // Clear current notes display
+            notesSection.innerHTML='';
+
+            if (notes.length === 0) {
+                // Show no results message
+                notesSection.innerHTML =`
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>No results found</h3>
+                        <p>Try a different search term</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Build notes grid from search results
+            let html = `<div class="notes-grid">`;
+            notes.forEach(function(note) {
+                html += `
+                <div class='note-card ${note.color}" data-id=${note.id}">
+                     ${note.title ? `<h3 class="note-card-title">${note.title}</h3>` : ''}
+                     <p class="note-card-content">${note.content.replace(/<[^>]*>/g, '').substring(0, 150)}</p>
+                     <span class="note-timestamp">${note.updated_at}</span>
+                        <div class="note-actions">
+                            <button class="btn-note-action btn-edit"
+                                    data-id="${note.id}"
+                                    data-title="${note.title}"
+                                    data-content="${note.content}"
+                                    data-color="${note.color}"
+                                    title="Edit note">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="btn-note-action btn-pin"
+                                    data-id="${note.id}"
+                                    title="Pin note">
+                                <i class="fas fa-thumbtack"></i>
+                            </button>
+                            <button class="btn-note-action btn-delete"
+                                    data-id="${note.id}"
+                                    title="Delete note">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            notesSection.innerHTML = html;
+            
+        }, 300);
+    });
+}
