@@ -264,3 +264,80 @@ if (saveNoteBtn) {
         }
     });
 }
+
+// ============================================
+// EDIT NOTE - Open modal with prefilled data
+// ============================================
+
+// Listen for clicks on all edit buttons
+document.querySelectorAll('btn-edit').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+        // Stop click from bubbling up to card
+        e.stopPropagation();
+
+        // Get note data from data attributes
+        const noteId = this.getAttribute('data-id');
+        const title = this.getAttribute('data=title');
+        const content = this.getAttribute('data-content');
+        const color = this.getAttribute('data-color')
+
+        // Prefill edit modal fields
+        document.getElementById('editNoteId').value = noteId;
+        document.getElementById('editTitle').value = title || '';
+
+        // Set Quill editor content
+        if (quillEdit) quillEdit.root.innerHTML = content || '';
+
+        // Set active color dot in edit modal
+        document.querySelectorAll('#editModal .color-dot')
+            .forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-color') === color) {
+                    dot.classList.add('active');
+                }
+            });
+
+        // Set color hidden input
+        document.getElementById('editSelectedColor').value = color || 'white';
+
+        // Open Bootstrap modal
+        const modal = new bootstrap.Modal(document.getElementById('editModal'));
+        modal.show(); 
+    });
+});
+
+// ============================================
+// SAVE EDIT - Send to Flask /edit-note
+// ============================================
+
+const saveEditBtn =document.getElementById('saveEditNote');
+
+if (saveEditBtn) {
+    saveEditBtn.addEventListener('click', async function() {
+        const noteId = document.getElementById('editNoteId').value;
+        const title = document.getElementById('editTitle').value.trim();
+        const content = quill ? quillEdit.root.innerHTML : '';
+        const color = document.getElementById('editSelectedColor').value;
+        const pinned = document.getElementById('editIsPinned').value;
+
+        const formData = new FormData();
+        formData.append('note_id', noteId);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('color', color);
+        formData.append('pinned', pinned);
+
+        const response = await fetch('/edit-note', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            window.location.reload();
+        } else {
+            alert('Error updating note. Please try again. ');
+        }
+    });
+}
