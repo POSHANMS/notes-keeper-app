@@ -222,3 +222,45 @@ if (editPinToggle) {
         }
     });
 }
+
+// ============================================
+// SAVE NOTE - Send to Flask /add-note
+// ============================================
+
+const saveNoteBtn = document.getElementById('saveNote');
+
+if (saveNoteBtn) {
+    saveNoteBtn.addEventListener('click', async function() {
+        const title = document.getElementById('noteTitle').value.trim();
+        const content = quill ? quill.root.innerHTML : '';
+        const color = document.getElementById('selectedColor').value;
+        const pinned = document.getElementById('isPinned').value;
+
+        // Don't save if both title and content are empty
+        if (!title && quill.getText().trim() === '') {
+            alert('Please add a title or some content!');
+            return;
+        }
+
+        // Send to Flask
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('color', color);
+        formData.append('pinned', pinned);
+
+        const response = await fetch('/add-note', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Reload page to show new note
+            window.location.reload();
+        } else {
+            alert('Error saving note. Please try again. ');
+        }
+    });
+}
