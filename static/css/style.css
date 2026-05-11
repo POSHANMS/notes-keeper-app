@@ -118,6 +118,7 @@ button {
 /* Right panel - holds the glass card */
 .auth-right {
     flex: 1;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
