@@ -8,7 +8,7 @@ function togglePasswordVisibility(toggleId, inputId) {
     const input = document.getElementById(inputId);
 
     // If elements don't exist on this page, stop
-    if (toggle || !input) return;
+    if (!toggle || !input) return;
 
     toggle.addEventListener('click', function() {
         // Switch between password and text type
@@ -74,7 +74,7 @@ const toolbarOptions = [
 // Check if element exists first - only on notes page
 let quill = null;
 if (document.getElementById('quill-editor')) {
-    quill = new quill('#quill-editor', {
+    quill = new Quill('#quill-editor', {
         theme: 'snow',
         placeholder: 'Take a note...',
         modules: {
@@ -213,7 +213,7 @@ if (editPinToggle) {
 
         if (editIspinned.value === '0') {
             editIspinned.value = '1';
-            this.style.color = 'var(--brand-primary';
+            this.style.color = 'var(--brand-primary)';
             this.title = 'Unpin note';
         } else {
             editIspinned.value = '0';
@@ -270,14 +270,14 @@ if (saveNoteBtn) {
 // ============================================
 
 // Listen for clicks on all edit buttons
-document.querySelectorAll('btn-edit').forEach(function(btn) {
+document.querySelectorAll('.btn-edit').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
         // Stop click from bubbling up to card
         e.stopPropagation();
 
         // Get note data from data attributes
         const noteId = this.getAttribute('data-id');
-        const title = this.getAttribute('data=title');
+        const title = this.getAttribute('data-title');
         const content = this.getAttribute('data-content');
         const color = this.getAttribute('data-color')
 
@@ -316,7 +316,7 @@ if (saveEditBtn) {
     saveEditBtn.addEventListener('click', async function() {
         const noteId = document.getElementById('editNoteId').value;
         const title = document.getElementById('editTitle').value.trim();
-        const content = quill ? quillEdit.root.innerHTML : '';
+        const content = quillEdit ? quillEdit.root.innerHTML : '';
         const color = document.getElementById('editSelectedColor').value;
         const pinned = document.getElementById('editIsPinned').value;
 
@@ -506,7 +506,7 @@ function triggerAutoSave() {
         const titleValue = title.value.trim();
 
         // Don't auto-save if completely empty
-        if (!titleValue && quill.getItem().trim() === '') return;
+        if (!titleValue && quill.getText().trim() === '') return;
 
         const formData = new FormData();
         formData.append('title', titleValue);
