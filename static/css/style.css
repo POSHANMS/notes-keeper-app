@@ -1069,3 +1069,16 @@ body.dark .btn-close {
     width: auto;
     padding: 0.5rem 1.5rem;
 }
+
+/* Fix modal z-index */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    z-index: 1050 !important;
+}
+
+.modal-dialog {
+    pointer-events: all !important;
+}

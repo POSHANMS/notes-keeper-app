@@ -249,6 +249,10 @@ if (saveNoteBtn) {
         formData.append('color', color);
         formData.append('pinned', pinned);
 
+        if (currentNoteId) {
+            formData.append('note_id', currentNoteId);
+        }
+
         const response = await fetch('/add-note', {
             method: 'POST',
             body: formData
